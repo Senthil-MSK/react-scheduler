@@ -62,7 +62,7 @@ export const StyledEvent = styled.span`
 export const StyledPrev = styled.div`
   position: fixed;
   top: 50%;
-  left: -5.2%;
+  left: -5.6%;
   padding-top: 70px;
   padding-bottom: 70px;
   padding-left: 70px;

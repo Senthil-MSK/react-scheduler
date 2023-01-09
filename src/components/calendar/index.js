@@ -58,7 +58,7 @@ function Calendar({ startingDate }) {
   // if (isError) {
   //   return errorScreen();
   // }
-  console.log(data?.data);
+  // console.log(data?.data);
   const eventsArr = data?.data;
 
   const errorScreen = () => {
@@ -106,14 +106,14 @@ function Calendar({ startingDate }) {
         {/* {getSortedDays(currentMonth, currentYear).map((day) => (
           <HeadDay key={day}>{day}</HeadDay>
         ))} */}
-        {DAYS.map((day) => (
-          <HeadDay key={day}>{day}</HeadDay>
+        {DAYS.map((day, index) => (
+          <HeadDay key={crypto.randomUUID()}>{day}</HeadDay>
         ))}
       </SevenColGrid>
       <CalendarBody fourCol={DAYSINMONTH === 28}>
-        {DAYSINMONTH?.map((day) => (
+        {DAYSINMONTH?.map((day, index) => (
           <StyledDay
-            key={day}
+            key={crypto.randomUUID()}
             active={areDateTheSame(
               new Date(),
               getDateObj(day, currentMonth + 1, currentYear),

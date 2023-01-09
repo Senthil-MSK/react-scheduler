@@ -10,14 +10,14 @@ export const range = (nosDays, year, month) => {
   );
   // console.log("Range :-", result);
   let prevMonthDays = getFirstDayOfMonth(year, month);
-  console.log("prevMonthDays", nosDays, month, prevMonthDays);
+  // console.log("prevMonthDays", nosDays, month, prevMonthDays);
   if (prevMonthDays == 0) prevMonthDays = 5;
 
   for (let i = 0; i <= prevMonthDays; i++) {
     let d = new Date(year, month + 1, -i).getDate();
     result.unshift(d);
   }
-  console.log("result", result);
+  // console.log("result", result);
   return result;
 };
 
@@ -36,16 +36,14 @@ export const getDaysInMonth = (month, year) => {
     { result: [], current: 1 }
   );
 
-  console.log("Range :-", result);
+  // console.log("Range :-", result);
   let prevMonthDays = getFirstDayOfMonth(year, month);
-  console.log("prevMonthDays", nosDays, month, prevMonthDays);
+  // console.log("prevMonthDays", nosDays, month, prevMonthDays);
   if (prevMonthDays === 0) prevMonthDays = 6;
 
   for (let i = 0; i < prevMonthDays; i++) {
     let d = new Date(year, month, -i).getDate();
-    console.log("i", i, "d", d);
     result.unshift(d);
-    console.log("result", result);
   }
   return result;
 };
