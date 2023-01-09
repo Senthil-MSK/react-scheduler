@@ -1,7 +1,7 @@
 import { DAYS } from "./constants";
 
-export const range = (end) => {
-  const { result } = Array.from({ length: end }).reduce(
+export const range = (nosDays, year, month) => {
+  const { result } = Array.from({ length: nosDays }).reduce(
     ({ result, current }) => ({
       result: [...result, current],
       current: current + 1,
@@ -9,10 +9,52 @@ export const range = (end) => {
     { result: [], current: 1 }
   );
   // console.log("Range :-", result);
+  let prevMonthDays = getFirstDayOfMonth(year, month);
+  console.log("prevMonthDays", nosDays, month, prevMonthDays);
+  if (prevMonthDays == 0) prevMonthDays = 5;
+
+  for (let i = 0; i <= prevMonthDays; i++) {
+    let d = new Date(year, month + 1, -i).getDate();
+    result.unshift(d);
+  }
+  console.log("result", result);
   return result;
 };
 
+// tot nos of days
 export const getDaysInMonth = (month, year) => {
+  // if (month === 3) return [2];
+  // if (month === 4) return [4];
+  // if (month === 5) return [9];
+  const nosDays = new Date(year, month + 1, 0).getDate();
+
+  const { result } = Array.from({ length: nosDays }).reduce(
+    ({ result, current }) => ({
+      result: [...result, current],
+      current: current + 1,
+    }),
+    { result: [], current: 1 }
+  );
+
+  console.log("Range :-", result);
+  let prevMonthDays = getFirstDayOfMonth(year, month);
+  console.log("prevMonthDays", nosDays, month, prevMonthDays);
+  if (prevMonthDays === 0) prevMonthDays = 6;
+
+  for (let i = 0; i < prevMonthDays; i++) {
+    let d = new Date(year, month, -i).getDate();
+    console.log("i", i, "d", d);
+    result.unshift(d);
+    console.log("result", result);
+  }
+  return result;
+};
+
+export const getFirstDayOfMonth = (year, month) => {
+  return new Date(year, month, 1).getDay();
+};
+
+export const getLastDayOfMonth = (year, month) => {
   return new Date(year, month + 1, 0).getDate();
 };
 
@@ -26,34 +68,18 @@ export const getDateObj = (day, month, year) => {
 };
 
 export const areDateTheSame = (currentDate, startDate, endDate) => {
-  // console.log("currentDate", currentDate);
-  // console.log("startDate", startDate);
-  // console.log("endDate", endDate);
-  const cu = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth(),
-    currentDate.getDate()
-  );
-  const sDate = new Date(
-    startDate.getFullYear(),
-    startDate.getMonth() - 1,
-    startDate.getDate()
-  );
-  const eDate = new Date(
-    endDate.getFullYear(),
-    endDate.getMonth() - 1,
-    endDate.getDate()
-  );
-  if (cu >= sDate && cu <= eDate) {
+  if (
+    currentDate.getFullYear() >= startDate.getFullYear() &&
+    currentDate.getMonth() >= startDate.getMonth() - 1 &&
+    currentDate.getDate() >= startDate.getDate() &&
+    currentDate.getFullYear() <= endDate.getFullYear() &&
+    currentDate.getMonth() <= endDate.getMonth() - 1 &&
+    currentDate.getDate() <= endDate.getDate()
+  ) {
     return true;
   } else {
     return false;
   }
-  // return (
-  //   currentDate.getFullYear() === startDate.getFullYear() &&
-  //   currentDate.getMonth() === startDate.getMonth() - 1 &&
-  //   currentDate.getDate() === startDate.getDate()
-  // );
 };
 
 export const getDateDiff = (startDate, endDate) => {

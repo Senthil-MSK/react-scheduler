@@ -1,4 +1,5 @@
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -13,10 +14,14 @@ function HeaderPage(props) {
       mb={5}
     >
       <div>Calendar</div>
-      <div>
-        <NotificationsIcon />
-        <AccountCircleIcon />
-      </div>
+      <Stack direction="row">
+        <Button>
+          <NotificationsIcon />
+        </Button>
+        <Button>
+          <AccountCircleIcon />
+        </Button>
+      </Stack>
     </Stack>
   );
 }

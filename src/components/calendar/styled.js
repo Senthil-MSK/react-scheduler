@@ -36,12 +36,13 @@ export const CalendarBody = styled.div`
   height: calc(100% - 25px);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(${(fourCol) => (fourCol ? 4 : 5)}, 1fr);
+  grid-template-rows: repeat(${(fourCol) => (fourCol ? 5 : 5)}, 1fr);
 `;
 
 export const StyledDay = styled.div`
   border: 1px solid #eeeeee;
   text-align: left;
+  min-height: 60px;
   padding: 5px;
   ${({ active }) => active && `background:#f0e6ea`};
 `;

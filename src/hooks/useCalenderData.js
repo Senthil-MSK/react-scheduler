@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, enabled } from "react-query";
 import axios from "axios";
 
 import { calenderDemo } from "../constant/constants";
@@ -9,19 +9,9 @@ const fetchData = () => {
 
 export const useCalenderData = (onSuccess, onError) => {
   return useQuery(calenderDemo, fetchData, {
+    enabled,
     onSuccess: onSuccess,
     onError: onError,
+    refetchOnWindowFocus: false,
   });
 };
-
-// // instead of id, usually we call querykey,querykey is one of the object in useQuery method
-// const fetchPostWithID = ({ queryKey }) => {
-//   const id = queryKey[1];
-//   console.log("AAAAAAAAAAAAA", id);
-//   return axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
-// };
-
-// export const usePostDataWitID = (id) => {
-//   // return useQuery(["MSK", id], () => fetchPostWithID(id));
-//   return useQuery(["MSK", id], fetchPostWithID);
-// };

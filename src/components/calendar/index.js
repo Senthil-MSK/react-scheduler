@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useCalenderData } from "../../hooks/useCalenderData";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -7,6 +9,7 @@ import { useState } from "react";
 import CalendarEvents from "../CalendarEvents";
 import HeaderPage from "../HeaderPage";
 import { DAYS, MONTHS } from "./constants";
+import useFetch from "../../hooks/useFetch";
 
 import {
   CalendarHead,
@@ -40,17 +43,23 @@ function Calendar({ startingDate }) {
   const [currentMonth, setCurrentMonth] = useState(startingDate.getMonth());
   const [currentYear, setCurrentYear] = useState(startingDate.getFullYear());
   const DAYSINMONTH = getDaysInMonth(currentMonth, currentYear);
-  const { isLoading, isError, data } = useCalenderData(onSuccess, onError);
+
+  //this is alternate way for fetching data, just for reference
+  // const { isLoading, isError, data } = useCalenderData(onSuccess, onError);
+  const { loading, data } = useFetch(
+    "https://demo-api.digialpha.cloud/api/calender-demo"
+  );
 
   // if (isLoading) {
   //   return <h1>Loading</h1>;
   // }
   // console.log("data", data.data.data);
-  const eventsArr = data?.data?.data;
 
-  if (isError) {
-    return errorScreen();
-  }
+  // if (isError) {
+  //   return errorScreen();
+  // }
+  console.log(data?.data);
+  const eventsArr = data?.data;
 
   const errorScreen = () => {
     return (
@@ -91,7 +100,7 @@ function Calendar({ startingDate }) {
       </StyledNext>
       <CalendarHead>
         {MONTHS[currentMonth]} {currentYear}
-        <Button>Today</Button>
+        {/* <Button>Today</Button> */}
       </CalendarHead>
       <SevenColGrid>
         {/* {getSortedDays(currentMonth, currentYear).map((day) => (
@@ -102,7 +111,7 @@ function Calendar({ startingDate }) {
         ))}
       </SevenColGrid>
       <CalendarBody fourCol={DAYSINMONTH === 28}>
-        {range(DAYSINMONTH).map((day) => (
+        {DAYSINMONTH?.map((day) => (
           <StyledDay
             key={day}
             active={areDateTheSame(
